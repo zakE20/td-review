@@ -29,7 +29,7 @@ export default class Game {
         this.objetsGraphiques.push(this.objetSouris);
 
         // On crée des obstacles
-        let obstacle1 = new Obstacle(200, 0, 40, 400, "red");
+        let obstacle1 = new Obstacle(100, 0, 40, 70, "red");
         this.objetsGraphiques.push(obstacle1);
 
         // On ajoute la sortie 
@@ -50,7 +50,8 @@ export default class Game {
     }
 
     mainAnimationLoop() {
-        // 1 - on efface le canvas
+        // 1 - on
+        //  efface le canvas
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         // 2 - on dessine les objets à animer dans le jeu
@@ -60,8 +61,11 @@ export default class Game {
         // 3 - On regarde l'état du clavier, manette, souris et on met à jour
         // l'état des objets du jeu en conséquence
         this.updateObstacles();
+        //déplace le joueur
         this.movePlayer();
+        //teste les collisions du joueur avec les obstacles
         this.testCollisionPlayerObstacles();
+        //verifie si le joueur a atteint la sortie
         this.iswin();
 
         // 4 - on demande au navigateur d'appeler la fonction mainAnimationLoop
