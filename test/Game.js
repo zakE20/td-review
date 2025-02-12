@@ -77,15 +77,17 @@ export default class Game {
     }
 
     updateObstacles() {
+        // Met à jour la position des obstacles
         this.objetsGraphiques.forEach(obj => {
             if (obj instanceof Obstacle && obj !== this.sortie) { 
                 obj.x += this.VitesseObstacle;
-                 if (obj.x <= 0 || obj.x + obj.w >= this.canvas.width) {
+                // Inverse la direction si l'obstacle atteint le bord du canvas
+                if (obj.x <= 0 || obj.x + obj.w >= this.canvas.width) {
                     obj.x = Math.max(0, Math.min(this.canvas.width - obj.w, obj.x)); 
                     this.VitesseObstacle = -this.VitesseObstacle; // Inverser la direction
                 }
 
-                //  si l'obstacle entre en collision avec le joueur
+                // Si l'obstacle entre en collision avec le joueur
                 if (rectsOverlap(this.player.x - this.player.w / 2, this.player.y - this.player.h / 2, this.player.w, this.player.h, obj.x, obj.y, obj.w, obj.h)) {
                     // Collision avec l'obstacle
                     this.player.x = this.player.previousX;
@@ -99,6 +101,7 @@ export default class Game {
     }
 
     movePlayer() {
+        // Enregistre la position précédente du joueur
         this.player.previousX = this.player.x;
         this.player.previousY = this.player.y;
 
@@ -161,6 +164,7 @@ export default class Game {
     }
 
     testCollisionPlayerObstacles() {
+        // si les collisions du joueur avec les obstacles
         this.objetsGraphiques.forEach(obj => {
             if (obj instanceof Obstacle && obj !== this.sortie) { 
                 if (rectsOverlap(this.player.x - this.player.w / 2, this.player.y - this.player.h / 2, this.player.w, this.player.h, obj.x, obj.y, obj.w, obj.h)) {
@@ -175,6 +179,7 @@ export default class Game {
     }
 
     iswin() {
+        // Vérifie si le joueur a atteint la sortie
         if (rectsOverlap(this.player.x - this.player.w / 2, this.player.y - this.player.h / 2, this.player.w, this.player.h, this.sortie.x, this.sortie.y, this.sortie.w, this.sortie.h)) {
             console.log("niveau terminé ");
             this.niveauSuivante();
@@ -182,16 +187,19 @@ export default class Game {
     }
 
     niveauSuivante() {
+        // réinitialise la position du joueur et passe au niveau suivant
         this.player.x = 100;
         this.player.y = 100;
-        console.log("Passage au niveau suivant,bravo");
+        console.log("Passage au niveau suivant, bravo");
         this.niveau++;
         this.LevelSuivant();
     }
 
     LevelSuivant() {
+        // rrinitialise les objets graphiques pour le nouveau niveau
         this.objetsGraphiques = [this.player, this.objetSouris];
 
+        // ajoute de nouveaux obstacles pour le nouveau niveau
         for (let i = 0; i < this.niveau; i++) {
             let obstacle = new Obstacle(
                 Math.random() * (this.canvas.width - 50),
@@ -203,6 +211,7 @@ export default class Game {
             this.objetsGraphiques.push(obstacle);
         }
 
+        // la sortie
         this.sortie = new Obstacle(this.canvas.width - 50, this.canvas.height - 50, 50, 50, "green");
         this.objetsGraphiques.push(this.sortie);
 
