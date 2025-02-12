@@ -1,0 +1,28 @@
+body {
+    height: 100vh;
+    margin: 0;
+    background-color: lightgray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2 {
+    text-align: center;
+    font-size: 2em;
+    color: darkblue;
+    margin: 20px 0;
+}
+
+.canvas-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    width: 100%;
+}
+
+#myCanvas {
+    border: 1px solid black;
+    background-color: lightblue;
+}
